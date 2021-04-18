@@ -58,6 +58,19 @@ public class AccountController {
 
 
         // TODO バリデーションチェック、パスワード一致チェック実装
+        boolean meado = email.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+$");
+        boolean pass1 = password.matches("^[0-9a-zA-Z]+$");
+        boolean pass2 = passwordForCheck.matches("^[0-9a-zA-Z]+$");
+
+        if (!meado || !pass1 || !pass2) {
+            model.addAttribute("errorMessage", "半角英数字を入力してください。");
+            return "createAccount";
+        }
+
+        if (!password.equals(passwordForCheck)) {
+            model.addAttribute("errorMessagePass", "パスワードが一致していません。");
+            return "createAccount";
+        }
 
         userInfo.setPassword(password);
         usersService.registUser(userInfo);
@@ -65,5 +78,6 @@ public class AccountController {
         model.addAttribute("bookList", booksService.getBookList());
         return "home";
     }
+
 
 }
