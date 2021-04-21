@@ -1,24 +1,23 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
-<%@ page contentType="text/html; charset=utf8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
+<%@ page contentType="text/html; charset=utf8"%>
 <!doctype html>
-
 <html>
 <head>
-    <meta name="description" content="社内の書籍検索や貸出を行うことができます。" />
-    <meta name="robots" content="noindex,nofollow" />
-    <meta http-equiv="content-type" content="text/html" charset="utf-8" />
-    <title>アカウントの作成｜シアトルライブラリ｜シアトルコンサルティング株式会社</title>
-    <link href="<c:url value="/resources/css/reset.css" />" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
-    <link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
-    <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet" type="text/css">
+<meta name="description" content="社内の書籍検索や貸出を行うことができます。" />
+<meta name="robots" content="noindex,nofollow" />
+<meta http-equiv="content-type" content="text/html" charset="utf-8" />
+<title>アカウントの作成｜シアトルライブラリ｜シアトルコンサルティング株式会社</title>
+<link href="<c:url value="/resources/css/reset.css" />" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
+<link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
+<link href="<c:url value="/resources/css/login.css" />" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div class="wrapper">
         <main>
             <div class="authorization_head">
-            	<img class="mark" src="resources/img/logo.png" />
+                <img class="mark" src="resources/img/logo.png" />
                 <div class="logo">Seattle Library</div>
             </div>
             <div class="authorization">
@@ -43,15 +42,13 @@
                 <div class="authorization_navi">
                     <label class="authorization_text">すでにアカウントをお持ちですか？</label>
                     <form method="get" action="<%=request.getContextPath()%>/">
-						<a class="authorization_link marker" href="javascript:void(0)" onclick="this.parentNode.submit()">ログイン</a>
-					</form>
+                        <a class="authorization_link marker" href="javascript:void(0)" onclick="this.parentNode.submit()">ログイン</a>
+                    </form>
                 </div>
             </div>
         </main>
         <footer>
-            <div class="copyright">
-                    © 2019 Seattle Consulting Co., Ltd. All rights reserved.
-            </div>
+            <div class="copyright">© 2019 Seattle Consulting Co., Ltd. All rights reserved.</div>
         </footer>
     </div>
 </body>
