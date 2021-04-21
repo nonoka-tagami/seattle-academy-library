@@ -56,7 +56,6 @@ public class UsersService {
         }
     }
 }
-//UserInfo selectedUserInfo = jdbcTemplate.queryForObject(sql, new UserCountRowMapper());
-//return selectedUserInfo;
+
 
 
