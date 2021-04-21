@@ -37,7 +37,6 @@ public class BooksService {
 
                 new BookInfoRowMapper());
 
-        //model.addAttribute("bookInfo.title", booksService.getedBookList());
 
         return getedBookList;
     }
