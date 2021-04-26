@@ -43,7 +43,6 @@ public class UsersService {
      * @param password パスワード
      * @return ユーザー情報
      */
-
     public UserInfo selectUserInfo(String email, String password) {
         // TODO SQL生成
 

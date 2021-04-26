@@ -19,7 +19,7 @@ public class BookInfo {
 
     private String publisher;
 
-    private String publish_date;
+    private String publishDate;
 
     private String thumbnail;
 
@@ -28,12 +28,12 @@ public class BookInfo {
     }
 
     // コンストラクタ
-    public BookInfo(int bookId, String title, String author, String publisher, String publish_date, String thumbnail) {
+    public BookInfo(int bookId, String title, String author, String publisher, String publishDate, String thumbnail) {
         this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
-        this.publish_date = publish_date;
+        this.publishDate = publishDate;
         this.thumbnail = thumbnail;
     }
 

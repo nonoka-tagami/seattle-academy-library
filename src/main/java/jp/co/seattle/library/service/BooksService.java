@@ -47,6 +47,13 @@ public class BooksService {
         return getedBookList;
     }
 
+
+    public int latestBookId() {
+        String sql = "select max(id) from books";
+        int bookId = jdbcTemplate.queryForObject(sql, Integer.class);
+        return bookId;
+    }
+
     /**
      * 書籍IDに紐づく書籍詳細情報を取得する
      *
@@ -78,7 +85,7 @@ public class BooksService {
         String sql = "INSERT INTO books (title,description, author,publisher,publish_date,thumbnail_name,thumbnail_url,isbn,reg_date,upd_date) VALUES ('"
                 + bookInfo.getTitle() + "','" + bookInfo.getDescription() + "','" + bookInfo.getAuthor() + "','"
                 + bookInfo.getPublisher() + "','"
-                + bookInfo.getPublish_date() + "','"
+                + bookInfo.getPublishDate() + "','"
                 + bookInfo.getThumbnailName() + "','"
                 + bookInfo.getThumbnailUrl() + "','"
                 + bookInfo.getIsbn() + "',"
@@ -86,6 +93,21 @@ public class BooksService {
                 + "sysdate());";
 
         jdbcTemplate.update(sql);
+    }
+
+    /**
+     * 書籍を編集する
+     *
+     * @param bookId 
+     */
+    public void editBook(BookDetailsInfo bookInfo) {
+        String sql = "update books set title='" + bookInfo.getTitle()
+                + "',description='" + bookInfo.getDescription() + "',author='" + bookInfo.getAuthor() + "',publisher='"
+                + bookInfo.getPublisher()
+                + "',publish_date='" + bookInfo.getPublishDate() + "',thumbnail_url='" + bookInfo.getThumbnailUrl()
+                + "',isbn='" + bookInfo.getIsbn()
+                + "UPD_DATE = sysdate() where id=" + bookInfo.getBookId() + ";";
+                jdbcTemplate.update(sql);
     }
 
     /**
@@ -99,13 +121,10 @@ public class BooksService {
 
     }
 
-    public List<BookDetailsInfo> getLatestBookList() {
-
-        List<BookDetailsInfo> getedLatestBookList = jdbcTemplate.query(
-                "select title,author,publisher,publish_date,id,thumbnail_url,description,thumbnail_name,isbn from books where id = (select max(id) from books); ",
-
-                new BookDetailsInfoRowMapper());
-
-        return getedLatestBookList;
+    public int newBook() {
+        String sql = "select max(id) from books;";
+        int bookId = jdbcTemplate.queryForObject(sql, Integer.class);
+        return bookId;
     }
 }
+

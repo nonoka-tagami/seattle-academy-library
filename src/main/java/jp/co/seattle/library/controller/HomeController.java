@@ -20,6 +20,7 @@ public class HomeController {
     @Autowired
     private BooksService booksService;
 
+
     /**
      * Homeボタンからホーム画面に戻るページ
      * @param model

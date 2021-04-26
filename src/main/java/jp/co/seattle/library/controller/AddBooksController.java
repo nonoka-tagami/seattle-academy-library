@@ -59,7 +59,7 @@ public class AddBooksController {
             @RequestParam("description") String description,
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
-            @RequestParam("publish_date") String publishDate,
+            @RequestParam("publishDate") String publishDate,
             @RequestParam("thumbnail") MultipartFile file,
             @RequestParam("isbn") String isbn,
             Model model) {
@@ -71,7 +71,7 @@ public class AddBooksController {
         bookInfo.setDescription(description);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
-        bookInfo.setPublish_date(publishDate);
+        bookInfo.setPublishDate(publishDate);
         bookInfo.setIsbn(isbn);
 
         try {
@@ -116,9 +116,12 @@ public class AddBooksController {
         // 書籍情報を新規登録する
         
         booksService.registBook(bookInfo);
-
+        
+        BookDetailsInfo LatestDetailsBook = booksService.getBookInfo(booksService.latestBookId());
+        
         //model.addAttribute("resultMessage", "登録完了");
-        model.addAttribute("bookDetailsInfo", booksService.getLatestBookList());
+        model.addAttribute("bookDetailsInfo", bookInfo);
         return "details";
     }
 }
+

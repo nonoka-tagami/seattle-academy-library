@@ -38,10 +38,10 @@
                         <div class="books">
                             <form method="post" class="book_thumnail" action="<%=request.getContextPath()%>/details">
                                 <a href="javascript:void(0)" onclick="this.parentNode.submit();">
-                                    <c:if test="${!empty bookInfo.thumbnail}">
+                                    <c:if test="${bookInfo.thumbnail == 'null'}">
                                         <img class="book_noimg" src="resources/img/noImg.png">
                                     </c:if>
-                                    <c:if test="${!empty bookInfo.thumbnail}">
+                                    <c:if test="${bookInfo.thumbnail != 'null'}">
                                         <img class="book_noimg" src="${bookInfo.thumbnail}">
                                     </c:if>
                                 </a>
@@ -49,11 +49,9 @@
                             </form>
                             <ul>
                                 <li class="book_title">${bookInfo.title}</li>
-                                <li class="book_title">${bookInfo.author}</li>
-                                <li class="book_title">${bookInfo.publisher}</li>
-                                <li class="book_title">${bookInfo.publish_date}</li>
-                                <li class="book_title">${bookInfo.bookId}</li>
-                                <li class="book_title">${bookInfo.thumbnail}</li>
+                                <li class="book_author">${bookInfo.author}(著)</li>
+                                <li class="book_publisher">出版社:${bookInfo.publisher}</li>
+                                <li class="book_publish_date">出版日:${bookInfo.publishDate}</li>
                             </ul>
                         </div>
                     </c:forEach>
