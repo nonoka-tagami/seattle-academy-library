@@ -96,21 +96,6 @@ public class BooksService {
     }
 
     /**
-     * 書籍を編集する
-     *
-     * @param bookId 
-     */
-    public void editBook(BookDetailsInfo bookInfo) {
-        String sql = "update books set title='" + bookInfo.getTitle()
-                + "',description='" + bookInfo.getDescription() + "',author='" + bookInfo.getAuthor() + "',publisher='"
-                + bookInfo.getPublisher()
-                + "',publish_date='" + bookInfo.getPublishDate() + "',thumbnail_url='" + bookInfo.getThumbnailUrl()
-                + "',isbn='" + bookInfo.getIsbn()
-                + "UPD_DATE = sysdate() where id=" + bookInfo.getBookId() + ";";
-                jdbcTemplate.update(sql);
-    }
-
-    /**
      * 書籍を削除する
      *
      * @param bookId 
@@ -121,6 +106,11 @@ public class BooksService {
 
     }
 
+    /**
+     * 最新の書籍IDを取得する
+     *　@param newBook　最新の書籍ID
+     *  return bookid
+     */
     public int newBook() {
         String sql = "select max(id) from books;";
         int bookId = jdbcTemplate.queryForObject(sql, Integer.class);
