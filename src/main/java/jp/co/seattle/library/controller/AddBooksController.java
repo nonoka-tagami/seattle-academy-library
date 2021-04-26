@@ -71,7 +71,7 @@ public class AddBooksController {
         bookInfo.setDescription(description);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
-        bookInfo.setPublish_date(publishDate);
+        bookInfo.setPublishDate(publishDate);
         bookInfo.setIsbn(isbn);
 
         try {
@@ -117,8 +117,10 @@ public class AddBooksController {
         
         booksService.registBook(bookInfo);
 
+        BookDetailsInfo bookDetailsInfo = booksService.getBookInfo(booksService.latestBookId());
+
         //model.addAttribute("resultMessage", "登録完了");
-        model.addAttribute("bookDetailsInfo", booksService.getLatestBookList());
+        model.addAttribute("bookDetailsInfo", bookDetailsInfo);
         return "details";
     }
 }
