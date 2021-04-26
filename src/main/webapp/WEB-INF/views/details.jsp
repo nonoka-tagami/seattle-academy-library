@@ -68,8 +68,6 @@
                     <span>説明文</span>
                     <p>${bookDetailsInfo.description}</p>
                 </div>
-            </div>
-        </div>
         <div class="edtDelBookBtn_box">
             <div class="edtDelBookBtn_box">
                 <form method="post" action="rentBook">
