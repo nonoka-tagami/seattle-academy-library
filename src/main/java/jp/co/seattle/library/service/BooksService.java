@@ -17,25 +17,7 @@ import jp.co.seattle.library.rowMapper.BookInfoRowMapper;
  * 書籍サービス
  * 
  *  booksテーブルに関する処理を実装する
- */
-/**
- * @author user
- *
- */
-/**
- * @author user
- *
- */
-/**
- * @author user
- *
- */
-/**
- * @author user
- *
- */
-/**
- * @author user
+ 
  *
  */
 /**
@@ -93,12 +75,15 @@ public class BooksService {
     public void registBook(BookDetailsInfo bookInfo) {
 
 
-        String sql = "INSERT INTO books (title, author,publisher,thumbnail_name,thumbnail_url,reg_date,upd_date) VALUES ('"
-                + bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','"
+        String sql = "INSERT INTO books (title,description, author,publisher,publish_date,thumbnail_name,thumbnail_url,isbn,reg_date,upd_date) VALUES ('"
+                + bookInfo.getTitle() + "','" + bookInfo.getDescription() + "','" + bookInfo.getAuthor() + "','"
+                + bookInfo.getPublisher() + "','"
+                + bookInfo.getPublish_date() + "','"
                 + bookInfo.getThumbnailName() + "','"
-                + bookInfo.getThumbnailUrl() + "',"
+                + bookInfo.getThumbnailUrl() + "','"
+                + bookInfo.getIsbn() + "',"
                 + "sysdate(),"
-                + "sysdate())";
+                + "sysdate());";
 
         jdbcTemplate.update(sql);
     }
@@ -112,5 +97,15 @@ public class BooksService {
         String sql = "delete from books where id=" + bookid;
         jdbcTemplate.update(sql);
 
+    }
+
+    public List<BookDetailsInfo> getLatestBookList() {
+
+        List<BookDetailsInfo> getedLatestBookList = jdbcTemplate.query(
+                "select title,author,publisher,publish_date,id,thumbnail_url,description,thumbnail_name,isbn from books where id = (select max(id) from books); ",
+
+                new BookDetailsInfoRowMapper());
+
+        return getedLatestBookList;
     }
 }

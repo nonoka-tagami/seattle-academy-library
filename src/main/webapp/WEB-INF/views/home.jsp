@@ -51,7 +51,7 @@
                                 <li class="book_title">${bookInfo.title}</li>
                                 <li class="book_title">${bookInfo.author}</li>
                                 <li class="book_title">${bookInfo.publisher}</li>
-                                <li class="book_title">${bookInfo.publishDate}</li>
+                                <li class="book_title">${bookInfo.publish_date}</li>
                                 <li class="book_title">${bookInfo.bookId}</li>
                                 <li class="book_title">${bookInfo.thumbnail}</li>
                             </ul>

@@ -1,5 +1,8 @@
 package jp.co.seattle.library.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -40,9 +43,12 @@ public class AddBooksController {
      * 書籍情報を登録する
      * @param locale ロケール情報
      * @param title 書籍名
+     * @param descliption 書籍説明
      * @param author 著者名
+     * @param publishDate 出版日
      * @param publisher 出版社
      * @param file サムネイルファイル
+     * @param isbn 本の番号
      * @param model モデル
      * @return 遷移先画面
      */
@@ -50,20 +56,43 @@ public class AddBooksController {
     @RequestMapping(value = "/insertBook", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
     public String insertBook(Locale locale,
             @RequestParam("title") String title,
+            @RequestParam("description") String description,
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
+            @RequestParam("publish_date") String publishDate,
             @RequestParam("thumbnail") MultipartFile file,
+            @RequestParam("isbn") String isbn,
             Model model) {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
 
         // パラメータで受け取った書籍情報をDtoに格納する。
         BookDetailsInfo bookInfo = new BookDetailsInfo();
         bookInfo.setTitle(title);
+        bookInfo.setDescription(description);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
+        bookInfo.setPublish_date(publishDate);
+        bookInfo.setIsbn(isbn);
+
+        try {
+            DateFormat df = new SimpleDateFormat("yyyyMMdd");
+            df.setLenient(false);
+            df.parse(publishDate);
+        } catch (ParseException p) {
+            model.addAttribute("errorAddMessage", "ISBNの桁数または半角英数字が正しくありません。出版日は半角英数字YYYYMMDD形式で入力してください。");
+            return "addBook";
+        }
+        boolean isValidIsbn = isbn.matches("[0-9]{10}|[0-9]{13}");
+        if (!isValidIsbn) {
+            model.addAttribute("errorAddMessage", "ISBNの桁数または半角英数字が正しくありません。出版日は半角英数字YYYYMMDD形式で入力してください。");
+            return "addBook";
+        }
+
+
+
 
         // クライアントのファイルシステムにある元のファイル名を設定する
-        String thumbnail = file.getOriginalFilename();
+    String thumbnail = file.getOriginalFilename();
 
         if (!file.isEmpty()) {
             try {
@@ -85,13 +114,11 @@ public class AddBooksController {
         }
 
         // 書籍情報を新規登録する
+        
         booksService.registBook(bookInfo);
 
-        model.addAttribute("resultMessage", "登録完了");
-
-        // TODO 登録した書籍の詳細情報を表示するように実装
-        //  詳細画面に遷移する
+        //model.addAttribute("resultMessage", "登録完了");
+        model.addAttribute("bookDetailsInfo", booksService.getLatestBookList());
         return "details";
     }
-
 }
