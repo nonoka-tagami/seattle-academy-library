@@ -43,6 +43,13 @@ public class AddBooksBulkController {
         return "addBooksBulk";
     }
 
+    /**
+     * 書籍情報を一括登録する
+     * @param locale ロケール情報
+     * @param file csvファイル
+     * @param model モデル
+     * @return 遷移先画面
+     */
     @Transactional
     @RequestMapping(value = "/bulkRegist", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
     public String insertBook(Locale locale,
@@ -67,10 +74,9 @@ public class AddBooksBulkController {
                 }
                 lines.add(data);
 
-                //String errorNull = lines.size() + 1 + "行目の出版日は半角数字のYYYYMMDD形式で入力してください。ISBNは１０桁か１３桁の半角数字で入力してください。";
-                String errorDateIsbn = lines.size() + 1 + "行目の出版日は半角数字のYYYYMMDD形式で入力してください。ISBNは１０桁か１３桁の半角数字で入力してください。";
-                String errorDate = lines.size() + 1 + "行目の出版日は半角数字のYYYYMMDD形式で入力してください。";
-                String errorIsbn = lines.size() + 1 + "行目のISBNは１０桁か１３桁の半角数字で入力してください。";
+                String errorDateIsbn = lines.size() + "行目の出版日は半角数字のYYYYMMDD形式で入力してください。ISBNは１０桁か１３桁の半角数字で入力してください。";
+                String errorDate = lines.size() + "行目の出版日は半角数字のYYYYMMDD形式で入力してください。";
+                String errorIsbn = lines.size() + "行目のISBNは１０桁か１３桁の半角数字で入力してください。";
                 
 
                 try {
@@ -104,7 +110,7 @@ public class AddBooksBulkController {
             return "addBooksBulk";
         }
         
-        for (int i = 0; i < lines.size(); i++) {
+        for (int i = 0; i <= lines.size(); i++) {
             BookDetailsInfo bookInfo = new BookDetailsInfo();
             bookInfo.setTitle(lines.get(i)[0]);
             bookInfo.setAuthor(lines.get(i)[1]);
