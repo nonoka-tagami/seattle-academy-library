@@ -103,7 +103,7 @@
                         <div>
                             <span>説明文</span><span class="care care1">任意</span>
                             <c:if test="${!empty bookDetailsInfo}">
-                                <input type="text" name="description" value="${bookDetailsInfo.description}">
+                                <input type="text" name="description" value="${bookInfoDetails.description}">
                             </c:if>
                             <c:if test="${empty bookDetailsInfo}">
                                 <input type="text" name="description">
