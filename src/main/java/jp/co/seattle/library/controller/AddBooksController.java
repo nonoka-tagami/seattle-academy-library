@@ -84,7 +84,7 @@ public class AddBooksController {
         }
         boolean isValidIsbn = isbn.matches("[0-9]{10}|[0-9]{13}");
         if (!isValidIsbn) {
-            model.addAttribute("errorAddMessage", "ISBNの桁数または半角英数字が正しくありません。出版日は半角英数字YYYYMMDD形式で入力してください。");
+            model.addAttribute("errorMessage", "ISBNの桁数または半角英数字が正しくありません。出版日は半角英数字YYYYMMDD形式で入力してください。");
             return "addBook";
         }
 
@@ -116,11 +116,7 @@ public class AddBooksController {
         // 書籍情報を新規登録する
         
         booksService.registBook(bookInfo);
-
-        BookDetailsInfo bookDetailsInfo = booksService.getBookInfo(booksService.latestBookId());
-
-        //model.addAttribute("resultMessage", "登録完了");
-        model.addAttribute("bookDetailsInfo", bookDetailsInfo);
+        model.addAttribute("bookDetailsInfo", bookInfo);
         return "details";
     }
 }

@@ -103,7 +103,7 @@
                         <div>
                             <span>説明文</span><span class="care care1">任意</span>
                             <c:if test="${!empty bookDetailsInfo}">
-                                <input type="text" name="description" value="${bookInfoDetails.description}">
+                                <input type="text" name="description" value="${bookDetailsInfo.description}">
                             </c:if>
                             <c:if test="${empty bookDetailsInfo}">
                                 <input type="text" name="description">
@@ -113,7 +113,7 @@
                     </div>
                 </div>
                 <div class="addBookBtn_box">
-                    <button type="submit" id="add-btn" class="btn_addBook">登録</button>
+                    <button type="submit" id="add-btn" class="btn_addBook">更新</button>
                 </div>
             </form>
         </div>
