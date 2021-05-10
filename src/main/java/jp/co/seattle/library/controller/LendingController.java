@@ -22,71 +22,54 @@ import jp.co.seattle.library.service.LendingService;
 public class LendingController {
     final static Logger logger = LoggerFactory.getLogger(LendingController.class);
 
-        @Autowired
-        private BooksService booksService;
-        @Autowired
-        private LendingService lendingService;
+    @Autowired
+    private BooksService booksService;
+    @Autowired
+    private LendingService lendingService;
 
-        /**
-         * 対象書籍を貸し出す
-         *
-         * @param locale ロケール情報
-         * @param bookId 書籍ID
-         * @param model モデル情報
-         * @return 遷移先画面名
-         */
-        @Transactional
-        @RequestMapping(value = "/lendBook", method = RequestMethod.POST) //value＝actionで指定したパラメータ
-        //RequestParamでname属性を取得
-        public String lendBook(Model model,
-                @RequestParam("bookId") int bookId,
-                Locale locale) {
-            logger.info("Welcome lending! The client locale is {}.", locale);
+    /**
+     * 対象書籍を貸し出す
+     *
+     * @param locale ロケール情報
+     * @param bookId 書籍ID
+     * @param model モデル情報
+     * @return 遷移先画面名
+     */
+    @Transactional
+    @RequestMapping(value = "/lendBook", method = RequestMethod.POST) //value＝actionで指定したパラメータ
+    //RequestParamでname属性を取得
+    public String lendBook(Model model,
+            @RequestParam("bookId") int bookId,
+            Locale locale) {
+        logger.info("Welcome lending! The client locale is {}.", locale);
 
-            lendingService.lendBook(bookId);
-            
-            int count = lendingService.countBookId(bookId);
-            
-            if(count == 0) {
-                model.addAttribute("returnDisabled","disabled");
-                model.addAttribute("lendingStatus", "貸出可");
-            }else {
-                model.addAttribute("lendDisabled","disabled");
-                model.addAttribute("lendingStatus", "貸出不可");
-            }
-            model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
-            return "details";
-        }
+        lendingService.lendBook(bookId);
+        model.addAttribute("lendDisabled", "disabled");
+        model.addAttribute("lendingStatus", "貸出不可");
+        model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
+        return "details";
+    }
 
-        /**
-         * 対象書籍を返却する
-         *
-         * @param locale ロケール情報
-         * @param bookId 書籍ID
-         * @param model モデル情報
-         * @return 遷移先画面名
-         */
-        @Transactional
-        @RequestMapping(value = "/returnBook", method = RequestMethod.POST)
-        public String returnBook(Model model,
-                @RequestParam("bookId") int bookId,
-                Locale locale) {
-            logger.info("Welcome return! The client locale is {}.", locale);
+    /**
+     * 対象書籍を返却する
+     *
+     * @param locale ロケール情報
+     * @param bookId 書籍ID
+     * @param model モデル情報
+     * @return 遷移先画面名
+     */
+    @Transactional
+    @RequestMapping(value = "/returnBook", method = RequestMethod.POST)
+    public String returnBook(Model model,
+            @RequestParam("bookId") int bookId,
+            Locale locale) {
+        logger.info("Welcome return! The client locale is {}.", locale);
 
-            lendingService.returnBook(bookId);
+        lendingService.returnBook(bookId);
+        model.addAttribute("returnDisabled", "disabled");
+        model.addAttribute("lendingStatus", "貸出可");
+        model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
+        return "details";
+    }
 
-            int count = lendingService.countBookId(bookId);
-
-            if (count == 0) {
-                model.addAttribute("returnDisabled", "disabled");
-                model.addAttribute("lendingStatus", "貸出可");
-            } else {
-                model.addAttribute("lendDisabled", "disabled");
-                model.addAttribute("lendingStatus", "貸出不可");
-            }
-            model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
-            return "details";
-        }
-
-    
 }
