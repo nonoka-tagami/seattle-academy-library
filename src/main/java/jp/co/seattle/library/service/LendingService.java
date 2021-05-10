@@ -35,5 +35,4 @@ public class LendingService {
         String sql = "delete from lendingBook where booksId=" + bookId + ";";
         jdbcTemplate.update(sql);
     }
-
 }

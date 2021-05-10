@@ -88,7 +88,7 @@
                     <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_deleteBook">削除</button>
                 </form>
             </div>
-        </div>
+         </div>
         <c:if test="${!empty resultMessage}">
             <div class="error">${resultMessage}</div>
         </c:if>

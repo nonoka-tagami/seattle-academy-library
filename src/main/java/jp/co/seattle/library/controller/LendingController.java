@@ -44,6 +44,7 @@ public class LendingController {
         logger.info("Welcome lending! The client locale is {}.", locale);
 
         lendingService.lendBook(bookId);
+
         model.addAttribute("lendDisabled", "disabled");
         model.addAttribute("lendingStatus", "貸出不可");
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
@@ -66,6 +67,7 @@ public class LendingController {
         logger.info("Welcome return! The client locale is {}.", locale);
 
         lendingService.returnBook(bookId);
+
         model.addAttribute("returnDisabled", "disabled");
         model.addAttribute("lendingStatus", "貸出可");
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
