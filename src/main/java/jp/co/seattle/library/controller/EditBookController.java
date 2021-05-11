@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.seattle.library.dto.BookDetailsInfo;
 import jp.co.seattle.library.service.BooksService;
+import jp.co.seattle.library.service.LendingService;
 import jp.co.seattle.library.service.ThumbnailService;
 
 @Controller //APIの入り口
@@ -28,6 +29,8 @@ public class EditBookController {
     private BooksService booksService;
     @Autowired
     private ThumbnailService thumbnailService;
+    @Autowired
+    private LendingService lendingService;
 
     @Transactional
     @RequestMapping(value = "/editBook", method = RequestMethod.POST)
@@ -107,6 +110,15 @@ public class EditBookController {
 
         model.addAttribute("resultMessage", "編集完了");
         model.addAttribute("bookDetailsInfo", bookDetailsInfo);
+
+        int count = lendingService.countBookId(bookId);
+        if (count == 0) {
+            model.addAttribute("returnDisabled", "disabled");
+            model.addAttribute("lendingStatus", "貸出可");
+        } else {
+            model.addAttribute("lendDisabled", "disabled");
+            model.addAttribute("lendingStatus", "貸出不可");
+        }
         return "details";
     }
 }
