@@ -71,7 +71,7 @@ public class AddBooksController {
         bookInfo.setDescription(description);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
-        bookInfo.setPublish_date(publishDate);
+        bookInfo.setPublishDate(publishDate);
         bookInfo.setIsbn(isbn);
 
         try {
