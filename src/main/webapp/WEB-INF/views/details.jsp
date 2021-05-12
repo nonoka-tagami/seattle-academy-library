@@ -92,6 +92,7 @@
         <c:if test="${!empty resultMessage}">
             <div class="error">${resultMessage}</div>
         </c:if>
+        </div>
     </main>
 </body>
 </html>
