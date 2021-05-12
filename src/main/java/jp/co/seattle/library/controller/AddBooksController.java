@@ -82,7 +82,7 @@ public class AddBooksController {
             model.addAttribute("errorAddMessage", "ISBNの桁数または半角英数字が正しくありません。出版日は半角英数字YYYYMMDD形式で入力してください。");
             return "addBook";
         }
-        boolean isValidIsbn = isbn.matches("[0-9]{10}|[0-9]{13}");
+        boolean isValidIsbn = isbn.matches("[0-9]{10}?$|[0-9]{13}?$");
         if (!isValidIsbn) {
             model.addAttribute("errorAddMessage", "ISBNの桁数または半角英数字が正しくありません。出版日は半角英数字YYYYMMDD形式で入力してください。");
             return "addBook";
