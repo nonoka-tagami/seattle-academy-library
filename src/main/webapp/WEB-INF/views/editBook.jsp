@@ -58,6 +58,9 @@
                                 <input type="text" name="title" autocomplete="off">
                             </c:if>
                         </div>
+                        <c:if test="${!empty errorEditMessage}">
+                            <div class="error">${errorEditMessage}</div>
+                        </c:if>
                         <div>
                             <span>著者名</span><span class="care care2">必須</span>
                             <c:if test="${!empty bookDetailsInfo}">
@@ -84,17 +87,11 @@
                             <c:if test="${empty bookDetailsInfo}">
                                 <input type="text" name="publish_date">
                             </c:if>
-                            <c:if test="${!empty errorEditMessage}">
-                                <div class="error">${errorEditMessage}</div>
-                            </c:if>
                         </div>
                         <div>
                             <span>ISBN</span><span class="care care1">任意</span>
                             <c:if test="${empty bookDetailsInfo}">
                                 <input type="text" name="isbn">
-                            </c:if>
-                            <c:if test="${!empty errorEditMessage}">
-                                <div class="error">${errorEditMessage}</div>
                             </c:if>
                             <c:if test="${!empty bookDetailsInfo}">
                                 <input type="text" name="isbn" value="${bookDetailsInfo.isbn}">
