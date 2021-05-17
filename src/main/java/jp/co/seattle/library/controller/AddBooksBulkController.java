@@ -23,8 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.seattle.library.dto.BookDetailsInfo;
 import jp.co.seattle.library.service.BooksService;
-import jp.co.seattle.library.service.ThumbnailService;
-
 
 @Controller
 public class AddBooksBulkController {
@@ -33,9 +31,6 @@ public class AddBooksBulkController {
 
     @Autowired
     private BooksService booksService;
-
-    @Autowired
-    private ThumbnailService thumbnailService;
 
     @RequestMapping(value = "/addBookBulk", method = RequestMethod.GET) //value＝actionで指定したパラメータ
     //RequestParamでname属性を取得
@@ -69,48 +64,53 @@ public class AddBooksBulkController {
                 data = new String[6];
                 int i = 0;
 
-                for (String str : line.split(",")) {
+                for (String str : line.split(",", -1)) {
                     data[i++] = str;
                 }
                 lines.add(data);
 
+                String error = lines.size() + "の必須項目を入力してください。";
                 String errorDateIsbn = lines.size() + "行目の出版日は半角数字のYYYYMMDD形式で入力してください。ISBNは１０桁か１３桁の半角数字で入力してください。";
                 String errorDate = lines.size() + "行目の出版日は半角数字のYYYYMMDD形式で入力してください。";
                 String errorIsbn = lines.size() + "行目のISBNは１０桁か１３桁の半角数字で入力してください。";
-                
 
+                if (data[0].isEmpty() || data[1].isEmpty() || data[2].isEmpty() || data[3].isEmpty()) {
+                    errorList.add(error);
+                }
                 try {
                     DateFormat df = new SimpleDateFormat("yyyyMMdd");
                     df.setLenient(false);
                     df.parse(data[3]);
-                } catch (ParseException p) { 
+                } catch (ParseException p) {
                     boolean isValidIsbn1 = data[4].matches("[0-9]{10}|[0-9]{13}");
                     if (!isValidIsbn1) {
                         errorList.add(errorDateIsbn);
                     } else {
                         errorList.add(errorDate);
                     }
-                      
+
                 }
                 boolean isValidIsbn2 = data[4].matches("[0-9]{10}|[0-9]{13}");
                 if (!isValidIsbn2) {
                     errorList.add(errorIsbn);
                     continue;
                 }
-
+                buf.close();
             }
-            buf.close();
         } catch (IOException e) {
-            model.addAttribute("fileError", "csvファイルを読み込めません。");
-            return "addbookBulk";
+            model.addAttribute("list", "csvファイルを読み込めません");
+            return "addBooksBulk";
+        } catch (NullPointerException se) {
+            model.addAttribute("list", "csvファイルを読み込めません");
+            return "addBooksBulk";
         }
 
         if (errorList.size() != 0) {
             model.addAttribute("list", errorList);
             return "addBooksBulk";
         }
-        
-        for (int i = 0; i <= lines.size(); i++) {
+
+        for (int i = 0; i < lines.size(); i++) {
             BookDetailsInfo bookInfo = new BookDetailsInfo();
             bookInfo.setTitle(lines.get(i)[0]);
             bookInfo.setAuthor(lines.get(i)[1]);
@@ -120,7 +120,7 @@ public class AddBooksBulkController {
             bookInfo.setDescription(lines.get(i)[5]);
 
             booksService.registBook(bookInfo);
-    }
+        }
         model.addAttribute("addBooksBulk", "登録完了");
         return "addBooksBulk";
     }
