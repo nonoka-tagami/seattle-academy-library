@@ -1,5 +1,7 @@
 package jp.co.seattle.library.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.seattle.library.dto.FortuneInfo;
 import jp.co.seattle.library.dto.UserInfo;
 import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.UsersService;
@@ -56,7 +59,6 @@ public class AccountController {
         UserInfo userInfo = new UserInfo();
         userInfo.setEmail(email);
 
-
         // TODO バリデーションチェック、パスワード一致チェック実装
         boolean isValidEmail = email.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+$");
         boolean isValidPW = password.matches("^[0-9a-zA-Z]+$");
@@ -75,9 +77,20 @@ public class AccountController {
         userInfo.setPassword(password);
         usersService.registUser(userInfo);
 
+        //新規アカウントに自動採番されたuserIdを取得
+        UserInfo selectedUserInfo = usersService.selectUserInfo(email, password);
+        //現在日取得
+        Date dateObj = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+        String today = df.format(dateObj);
+        //「今日の運勢」生成
+        usersService.creatFortune(selectedUserInfo.getUserId(), today);
+        //「今日の運勢 取得
+        FortuneInfo fortuneInfo = usersService.getFortune(selectedUserInfo.getUserId());
+
+        model.addAttribute("fortuneInfo", fortuneInfo);
         model.addAttribute("bookList", booksService.getBookList());
         return "home";
     }
-
 
 }
