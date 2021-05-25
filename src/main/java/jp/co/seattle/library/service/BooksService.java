@@ -15,6 +15,7 @@ import jp.co.seattle.library.rowMapper.BookInfoRowMapper;
 
 /**
  * 書籍サービス
+
  * 
  *  booksテーブルに関する処理を実装する
  
@@ -43,11 +44,8 @@ public class BooksService {
 
                 new BookInfoRowMapper());
 
-
         return getedBookList;
     }
-
-
 
     /**
      * 書籍IDに紐づく書籍詳細情報を取得する
@@ -73,7 +71,6 @@ public class BooksService {
      */
 
     public void registBook(BookDetailsInfo bookInfo) {
-
 
         String sql = "INSERT INTO books (title,description, author,publisher,publish_date,thumbnail_name,thumbnail_url,isbn,reg_date,upd_date) VALUES ('"
                 + bookInfo.getTitle() + "','" + bookInfo.getDescription() + "','" + bookInfo.getAuthor() + "','"
