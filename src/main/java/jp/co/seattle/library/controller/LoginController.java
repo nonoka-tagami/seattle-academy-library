@@ -61,7 +61,7 @@ public class LoginController {
         FortuneInfo fortuneInfo = usersService.getFortune(selectedUserInfo.getUserId());
         //取得した日付が現在の日付と同じかチェック
         Date dateObj = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("YYYYMMDD");
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
         df.setLenient(false);
         //現在日YをYYYMMDDに変換
         String today = df.format(dateObj);
