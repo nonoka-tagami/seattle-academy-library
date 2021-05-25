@@ -66,7 +66,7 @@ public class LoginController {
         //現在日YをYYYMMDDに変換
         String today = df.format(dateObj);
         //最終ログイン日と現在日が異なる場合、if文の処理を行う。
-        if (!today.equals(dateObj)) {
+        if (!today.equals(fortuneInfo.getLastLoginDay())) {
             //運勢をアップデートする
             usersService.updateFortune(selectedUserInfo.getUserId(), fortuneInfo.getLastLoginDay());
             //最新の運勢情報を取得
@@ -75,6 +75,7 @@ public class LoginController {
             model.addAttribute("fortuneInfo", fortuneInfo);
         }
         // 本の情報を取得して画面側に渡す
+        model.addAttribute("userId", selectedUserInfo.getUserId());
         model.addAttribute("bookList", booksService.getBookList());
         return "home";
 

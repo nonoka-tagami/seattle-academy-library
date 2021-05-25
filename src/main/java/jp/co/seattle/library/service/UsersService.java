@@ -102,14 +102,13 @@ public class UsersService {
      * useIdに紐づく「今日の運勢」情報をアップデートする。
      *@param fortuneInfo 
      */
-    public void updateFortune(int userId, String lastLoginDay) {
+    public void updateFortune(int userId, String today) {
         String sql = "UPDATE  fortune SET color=(select o_id from objects where category =1 order by rand() limit 1),"
                 + "    item=(select o_id from objects where category =2 order by rand() limit 1),"
                 + "    action=(select o_id from objects where category =3 order by rand() limit 1),"
                 + "    situation=(select o_id from objects where category =4 order by rand() limit 1),"
                 + "    fortune=(select o_id from objects where category =5 order by rand() limit 1),"
-                + "    last_login_day=" + lastLoginDay
-                + " WHERE userid=" + userId + ";";
+                + "    last_login_day=" + today + " WHERE userid=" + userId + ";";
         jdbcTemplate.update(sql);
     }
 
