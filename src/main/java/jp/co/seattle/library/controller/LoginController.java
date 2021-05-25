@@ -68,7 +68,7 @@ public class LoginController {
         //最終ログイン日と現在日が異なる場合、if文の処理を行う。
         if (!today.equals(fortuneInfo.getLastLoginDay())) {
             //運勢をアップデートする
-            usersService.updateFortune(selectedUserInfo.getUserId(), fortuneInfo.getLastLoginDay());
+            usersService.updateFortune(selectedUserInfo.getUserId(), today);
             //最新の運勢情報を取得
             model.addAttribute("fortuneInfo", usersService.getFortune(selectedUserInfo.getUserId()));
         } else {

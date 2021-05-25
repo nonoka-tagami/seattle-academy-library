@@ -10,16 +10,21 @@
 <link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <link href="<c:url value="/resources/css/home.css" />" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="resources/js/userSession.js" /></script>
 </head>
 <body class="wrapper">
     <header>
         <div class="left">
-            <img class="mark" src="resources/img/logo.png" />
             <div class="logo">Seattle Library</div>
         </div>
         <div class="right">
             <ul>
-                <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
+            <form>
+               <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
+                <form>
+                <button type="submit" value="${bookDetailsInfo.bookId}" name="userId" class="btn_rentBook">Home</button>
+                </form>
                 <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li>
             </ul>
         </div>
@@ -27,12 +32,16 @@
     <main>
         <h1>Home</h1>
         <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a> <a href="<%=request.getContextPath()%>/addBookBulk" class="btn_bulk_book">書籍の一括登録</a>
-        <div class="fortune">
-            <div>今日の運勢は</div>${fortuneInfo.fortune}<div>~!</div>
-            <div>ラッキーカラーは、</div>${fortuneInfo.color}!
-            <div>ラッキーアイテムは、</div>${fortuneInfo.item}!
-            <div>${fortuneInfo.action}と、${fortuneInfo.situation}よ！</div>
-        </div>
+         <br>
+            
+            <div class="inu">今日の運勢</div>
+             <div class="fortune">
+                <div>今日の運勢は</div>${fortuneInfo.fortune}<div>~!</div>
+                <div>ラッキーカラーは、</div>${fortuneInfo.color}!
+                <div>ラッキーアイテムは、</div>${fortuneInfo.item}!
+                <div>${fortuneInfo.action}と、${fortuneInfo.situation}よ！</div>
+            </div>
+            
         <div class="content_body">
             <c:if test="${!empty resultMessage}">
                 <div class="error_msg">${resultMessage}</div>
