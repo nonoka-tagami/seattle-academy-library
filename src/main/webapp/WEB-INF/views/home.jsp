@@ -29,6 +29,7 @@
     <main>
         <h1>Home</h1>
         <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a> <a href="<%=request.getContextPath()%>/addBookBulk" class="btn_bulk_book">書籍の一括登録</a> <br>
+        <c:if test="${!empty fortuneInfo}">
         <div class="inu">今日の運勢</div>
         <div class="fortune">
             <div>今日の運勢は</div>${fortuneInfo.fortune}<div>~!</div>
@@ -36,6 +37,7 @@
             <div>ラッキーアイテムは、</div>${fortuneInfo.item}!
             <div>${fortuneInfo.action}と、${fortuneInfo.situation}よ！</div>
         </div>
+        </c:if>
         <div class="content_body">
             <c:if test="${!empty resultMessage}">
                 <div class="error_msg">${resultMessage}</div>
