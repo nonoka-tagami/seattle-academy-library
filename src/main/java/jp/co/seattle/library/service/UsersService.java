@@ -60,8 +60,8 @@ public class UsersService {
 
     /**
      * useIdに紐づく同日付の「今日の運勢」情報をfortuneテーブルから取得する。
-     *@param fortuneInfo 
-     *@return 運勢情報
+     *@param userId　userId ユーザーID
+     *@return fortuneInfo　運勢情報
      */
     public FortuneInfo getFortune(int userId) {
         String sql = "select id,"
@@ -83,24 +83,25 @@ public class UsersService {
 
     /**
      *「今日の運勢」情報を作成
-     *@param userId
-     *@return 運勢情報
+     *@param userId　ユーザーID
+     *@param today　現在日
      */
-    public void creatFortune(int userId, String lastLoginDay) {
+    public void creatFortune(int userId, String today) {
         String sql = "insert into fortune(color,item,action,situation,fortune,userid,last_login_day)"
                 + "values((select o_id from objects where category = 1 order by rand() limit 1),"
                 + "(select o_id from objects where category = 2 order by rand() limit 1),"
                 + "(select o_id from objects where category = 3 order by rand() limit 1),"
                 + "(select o_id from objects where category = 4 order by rand() limit 1),"
                 + "(select o_id from objects where category = 5 order by rand() limit 1),"
-                + userId + ",'" + lastLoginDay + "');";
+                + userId + ",'" + today + "');";
 
         jdbcTemplate.update(sql);
     }
 
     /**
      * useIdに紐づく「今日の運勢」情報をアップデートする。
-     *@param fortuneInfo 
+     *@param userId　ユーザーID
+     *@param today　現在日
      */
     public void updateFortune(int userId, String today) {
         String sql = "UPDATE  fortune SET color=(select o_id from objects where category =1 order by rand() limit 1),"
