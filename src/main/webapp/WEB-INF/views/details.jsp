@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="resources/css/lightbox.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="resources/js/lightbox.js" /></script>
+<script src="resources/js/button.js" /></script>
 </head>
 <body class="wrapper">
     <header>
@@ -75,11 +76,12 @@
         </div>
         <div class="edtDelBookBtn_box">
             <div class="edtDelBookBtn_box">
+            <input type="hidden" id="buttonCheck1" value="${lendingStatus}">
                 <form method="post" action="lendBook">
-                    <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" ${lendDisabled} class="btn_rentBook">借りる</button>
+                    <button type="submit" value="${bookDetailsInfo.bookId}"  name="bookId" class="btn_rentBook">借りる</button>
                 </form>
                 <form method="post" action="returnBook">
-                    <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" ${returnDisabled} class="btn_returnBook">返す</button>
+                    <button type="submit" value="${bookDetailsInfo.bookId}"  name="bookId" class="btn_returnBook">返す</button>
                 </form>
                 <form method="post" action="editBook">
                     <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_editBook">編集</button>
@@ -92,7 +94,6 @@
         <c:if test="${!empty resultMessage}">
             <div class="error">${resultMessage}</div>
         </c:if>
-        </div>
     </main>
 </body>
 </html>

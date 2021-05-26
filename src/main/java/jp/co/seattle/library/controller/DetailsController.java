@@ -44,10 +44,9 @@ public class DetailsController {
         int count = lendingService.countBookId(bookId);
 
         if (count == 0) {
-            model.addAttribute("returnDisabled", "disabled");
+
             model.addAttribute("lendingStatus", "貸出可");
         } else {
-            model.addAttribute("lendDisabled", "disabled");
             model.addAttribute("lendingStatus", "貸出不可");
         }
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
