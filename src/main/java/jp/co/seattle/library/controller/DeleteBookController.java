@@ -1,5 +1,4 @@
 package jp.co.seattle.library.controller;
-
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -50,6 +49,7 @@ public class DeleteBookController {
             model.addAttribute("lendingStatus", "貸出不可");
             return "details";
         }
+
         booksService.deleteBook(bookId);
         model.addAttribute("resultMessage", "削除完了");
         model.addAttribute("bookList", booksService.getBookList());
